@@ -50,7 +50,7 @@ gulp.task('watch', function() {
   // watch js file changes
   gulp.watch('./dev/app/**/*.js', ['build-js']); 
   // watch all html template file changes
-  gulp.watch('./dev/**/*.html', ['copy-html']); 
+  gulp.watch('./dev/www/*.html', ['copy-html']); 
 });
 
 gulp.task("run",[
