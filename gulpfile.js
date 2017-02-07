@@ -21,3 +21,34 @@ gulp.task("build-js", function(){
   .pipe(source("bundle.js"))
   .pipe(gulp.dest(config.desDir + '/js'));
 });
+
+var removeHtmlComments  = require('gulp-remove-html-comments');
+
+gulp.task("copy-html", function(){
+  return gulp.src(['./dev/www/*.html'])
+  .pipe(removeHtmlComments())
+  .pipe(gulp.dest(config.desDir))
+  .pipe(reload({stream:true}))
+});
+
+// gulpfile.js
+var browserSync = require('browser-sync').create();
+var reload = browserSync.reload;
+// Task to run local server
+gulp.task("startServer",  function() {
+  browserSync.init({
+    server: {
+        baseDir: config.desDir
+    },
+    notify: true
+  });
+});
+
+// Task to watch wich file is changing
+// and load the right task
+gulp.task('watch', function() {
+  // watch js file changes
+  gulp.watch('./dev/app/**/*.js', ['build-js']); 
+  // watch all html template file changes
+  gulp.watch('./dev/**/*.html', ['copy-html']); 
+});
