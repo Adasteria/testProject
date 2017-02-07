@@ -52,3 +52,11 @@ gulp.task('watch', function() {
   // watch all html template file changes
   gulp.watch('./dev/**/*.html', ['copy-html']); 
 });
+
+gulp.task("run",[
+  'build-js',
+  'copy-html',
+]);
+gulp.task('default', ['run'], function() {
+    gulp.start('startServer', 'watch');
+});
